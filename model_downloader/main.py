@@ -150,3 +150,5 @@ if __name__ == "__main__":
         os.path.join(model_download_location, model_name),
         os.path.join("st_app"),
     )
+
+    shutil.rmtree(model_download_location)

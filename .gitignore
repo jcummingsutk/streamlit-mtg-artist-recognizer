@@ -160,3 +160,7 @@ cython_debug/
 #.idea/
 config_secret.yaml
 old/
+notes.txt
+run_image_locally.sh
+st_app/model/
+st_app/images/

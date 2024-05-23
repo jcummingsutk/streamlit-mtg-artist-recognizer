@@ -97,28 +97,46 @@ def predict_on_image(img):
 
 def main():
     page_config()
-    selection = st.selectbox(
-        "How do you want to select an image?",
-        ["I want to use an already uploaded image", "I want to upload my own image"],
-        index=0,
-    )
-    if selection == "I want to use an already uploaded image":
-        img_filename = load_image_selection()
-    else:
-        img = st.file_uploader(
-            "Upload your magic card image'",
-            accept_multiple_files=False,
-            type=["jpg"],
+    image_filename = None
+    with st.container(border=True):
+        st.markdown(
+            """Welcome to my web app for recognizing Magic: The Gathering artists."""
         )
-        if img is not None:
-            with open("./image.jpg", "wb") as f:
-                f.write(img.getvalue())
-            img_filename = "./image.jpg"
-
+        st.markdown(
+            """To run the model, select an artist from the given dropdown menu below. Some art will appear, and you can select the art you would like to run the model on. Then, you can hit the run model button on the bottom of the page. If the prediction matches the artist you selected, the model was correct."""
+        )
+        st.markdown(
+            """
+            Alternatively, you can choose to upload your own Magic: The Gathering image instead of selecting from one of the loaded ones."""
+        )
+    with st.container(border=True):
+        selection = st.selectbox(
+            "How do you want to select an image?",
+            [
+                "I want to use an already uploaded image",
+                "I want to upload my own image",
+            ],
+            index=0,
+        )
+        if selection == "I want to use an already uploaded image":
+            image_filename = load_image_selection()
+        else:
+            img = st.file_uploader(
+                "Upload your magic card image'",
+                accept_multiple_files=False,
+                type=["jpg"],
+            )
+            if img is not None:
+                with open("./image.jpg", "wb") as f:
+                    f.write(img.getvalue())
+                image_filename = "./image.jpg"
     if st.button(label="Run the model on the image"):
-        st.write(f"The model predicts that the art is by {predict(img_filename)}")
-    else:
-        pass
+        if image_filename is not None:
+            st.write(f"The model predicts that the art is by {predict(image_filename)}")
+        else:
+            st.write(
+                "Please select or upload an image before attempting to run the model"
+            )
 
 
 if __name__ == "__main__":

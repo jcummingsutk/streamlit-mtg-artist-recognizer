@@ -9,6 +9,7 @@ import requests
 import yaml
 from mtgsdk import Card
 from requests import Response
+from tqdm import tqdm
 
 
 def get_unique_cards(cards: list[Card]) -> list[Card]:
@@ -123,14 +124,12 @@ def get_image_config(
 
 
 def main(artists: list[str], num_images_per_artist: int, image_folder: str):
-    for artist in artists:
+    for artist in tqdm(artists):
         download_images_for_artist(artist, num_images_per_artist, image_folder)
 
 
 def get_artists() -> list[str]:
-    artist_mapping_file = os.path.join(
-        "model", "mtg-artist-classifier", "model", "code", "artist_mapping.json"
-    )
+    artist_mapping_file = os.path.join("st_app", "model", "code", "artist_mapping.json")
     with open(artist_mapping_file, "r") as f:
         artist_mapping_dict = json.load(f)
     artists = [artist for artist in artist_mapping_dict.values()]

@@ -7,4 +7,5 @@ python -m image_downloader.main --image-config-file image_downloader/config.yaml
 
 docker build -t streamlit-mtg-artist-recognizer ./st_app
 
-rm -r model
+rm -r st_app/model/
+rm -r st_app/images/
