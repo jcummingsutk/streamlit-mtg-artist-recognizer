@@ -1,0 +1,14 @@
+azure_ml:
+  dev:
+    service_principal_client_id: f57439fb-8a1f-4eb4-a047-b9733b900a07
+    service_principal_tenant_id: e6ba44d9-c40a-4dc9-b59f-8fff330da1c0
+    workspace_name: mtg-artist-classifier-dev
+    azure_subscription_id: 94f3bfe4-d65b-4af2-959a-f4cc3f4fef6a
+    resource_group_name: john-cummings
+download_params:
+  model_download_location: model/
+  additional_non_torch_requirements:
+    - streamlit
+    - streamlit-image-select
+model_name: mtg-artist-classifier
+version: 3
